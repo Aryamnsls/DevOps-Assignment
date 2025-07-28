@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 18
 
-      - name: Build Next.js frontend
+      - name: Install dependencies and build
         working-directory: frontend
         run: |
           npm install
@@ -33,7 +33,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push Docker image
+      - name: Build and push Docker image
         run: |
           docker build -t ghcr.io/aryamnsls/devops-frontend:latest ./frontend
           docker push ghcr.io/aryamnsls/devops-frontend:latest
