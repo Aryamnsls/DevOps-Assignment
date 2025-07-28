@@ -26,14 +26,10 @@ jobs:
           npm install
           npm run build
 
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: aryamnsls
-          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Login to GitHub Container Registry
+        run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Build and push Docker image
+      - name: Build and Push Docker image
         run: |
           docker build -t ghcr.io/aryamnsls/devops-frontend:latest ./frontend
           docker push ghcr.io/aryamnsls/devops-frontend:latest
